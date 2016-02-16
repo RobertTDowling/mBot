@@ -4,22 +4,30 @@
 
 MeButton::MeButton()
 {
-	_pin = A7;
+  _pin = A7;
+  init ();
 }
 
 MeButton::MeButton(uint8_t pin)
 {
-	_pin = pin;
+  _pin = pin;
+  init ();
 }
 
 ///@brief Read button
 ///@return 0 for not pressed, 1 for pressed
 uint8_t MeButton::readButton()
 {
-	return analogRead (_pin) < 512 ? 1 : 0;
+   return analogRead (_pin) < 512 ? 1 : 0;
 }
 
 bool MeButton::isPressed ()
 {
-	return readButton();
+  return readButton();
 }
+
+uint8_t MeButton::init ()
+{
+  state=0;
+}
+

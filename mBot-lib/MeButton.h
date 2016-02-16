@@ -15,7 +15,11 @@ public:
 	uint8_t readButton();
 	///@brief Test button
 	bool isPressed ();
+
+        uint8_t init();
 private:
 	uint8_t _pin;
+public:
+        uint8_t state;
 };
 #endif
