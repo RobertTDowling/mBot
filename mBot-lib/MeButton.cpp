@@ -26,8 +26,42 @@ bool MeButton::isPressed ()
   return readButton();
 }
 
-uint8_t MeButton::init ()
+void MeButton::init ()
 {
-  state=0;
+  _state=0;
+  _ticker=0;
+  _nextState=0;
 }
 
+uint8_t MeButton::getState ()
+{
+  return _state;
+}
+
+uint8_t MeButton::getStateChanged ()
+{
+  if (_ticker) { // button was already pressed
+    if (!isPressed()) {
+      delay (20);
+      _ticker = 0;
+    }
+  } else { // button was not pressed yet
+    if (isPressed()) {
+      delay (20);
+      _ticker = 1;
+      gotoState (_nextState);
+      return _nextState;
+    }
+  }
+  return NO_CHANGE;
+}
+
+void MeButton::gotoState (uint8_t s)
+{
+  _state = s;
+}
+
+void MeButton::nextState (uint8_t s)
+{
+  _nextState = s;
+}

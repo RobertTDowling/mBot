@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define NO_CHANGE 255
+
 class MeButton
 {
 public:
@@ -16,10 +18,15 @@ public:
 	///@brief Test button
 	bool isPressed ();
 
-        uint8_t init();
+        void init();
+	uint8_t getState ();
+	uint8_t getStateChanged ();
+	void nextState (uint8_t s);
+	void gotoState (uint8_t s);
 private:
 	uint8_t _pin;
-public:
-        uint8_t state;
+        uint8_t _state;
+	uint8_t _nextState;
+        uint8_t _ticker;
 };
 #endif

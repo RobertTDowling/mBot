@@ -7,35 +7,24 @@ const uint8_t pin = 13;
 MeButton button;
 
 void setup() {
-  // put your setup code here, to run once:
   button.init ();
+  button.nextState (1); // On next press, enter state 1
   pinMode (pin, OUTPUT);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  switch (button.state) {
-    case 0: if (button.isPressed()) {
-      button.state=1;
-      digitalWrite (pin, 1);
-    }
-    break;
-    case 1: if (!button.isPressed()) {
-      button.state=2;
-    }
-    break;
-    case 2: if (button.isPressed()) {
-      button.state=3;
-      digitalWrite (pin, 0);
-    }
-    break;
-    case 3: if (!button.isPressed()) {
-      button.state=0;
-    }
-    break;
-    default:
-      button.state = 0;
+  switch (button.getStateChanged ())
+  {
+    case 0: digitalWrite (pin, 0); button.nextState (1); break;
+    case 1: digitalWrite (pin, 1); button.nextState (2); break;
+    case 2: button.nextState (0);
+    default: break;
   }
-  delay (20);
+  switch (button.getState())
+  {
+    case 2: digitalWrite (pin, 0); delay (100); button.gotoState (3); break;
+    case 3: digitalWrite (pin, 1); delay (100); button.gotoState (2); break;
+    default: break;
+  }
 }
 
