@@ -4,16 +4,17 @@
 
 const uint8_t pin = 13;
 
-MeButton button;
+MeLSButton button;
 
 void setup() {
   pinMode (pin, OUTPUT);
+  Serial.begin (115200);
 }
 
 void loop() {
   if (button.getStateChanged ()) {
     switch (button.getState())
-  {
+    {
       case 0: digitalWrite (pin, 1); button.gotoState (1); break;
       case 1: button.gotoState (2); break;
       case 2: 
