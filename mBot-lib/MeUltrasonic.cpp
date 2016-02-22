@@ -10,14 +10,13 @@ MeUltrasonic::MeUltrasonic(MEPORT port): MePort(port)
 
 double MeUltrasonic::distanceCm(uint16_t maxCm)
 {
-    long distance = measure(maxCm * 55 + 200);
-    return (double)distance / 58.0;
+    return distanceInch((maxCm*25)/10);
 }
 
 double MeUltrasonic::distanceInch(uint16_t maxInch)
 {
-    long distance = measure(maxInch * 145 + 200);
-    return (double)(distance / 148.0);
+    long distance = measure(maxInch * 177 + 200);
+    return (double)((distance-177.3)/ 218.6);
 }
 
 double MeUltrasonic::distanceCm(){
@@ -36,6 +35,7 @@ long MeUltrasonic::measure(unsigned long timeout)
     // MePort::dWrite2(LOW);
     // pinMode(s2, INPUT);
     // duration = pulseIn(s2, HIGH, timeout);
+    pinMode (s2, OUTPUT);
     digitalWrite(s2,LOW);
     delayMicroseconds(2);
     digitalWrite(s2,HIGH);
