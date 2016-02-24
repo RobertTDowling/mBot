@@ -1,0 +1,9 @@
+RPM = 0.48905 * PWM - 4.725
+
+Lowest setting it will start at, around 60
+Lowest setting it will run at, around 35
+
+Around 128 = 60RPM
+255 is 118RPM
+65 is 26RPM
+35 is 11RPM
