@@ -15,7 +15,9 @@ public:
 	///@return 0 for not pressed, 1 for pressed
 	bool readButton();
 private:
+        int32_t _var;
+        int16_t _mean;
 	uint8_t _pin;
-        int16_t _lastRead;
+	uint8_t _lsbState;
 };
 #endif
